@@ -13,6 +13,14 @@ target_include_directories(TTreeIterator PRIVATE ${CMAKE_BINARY_DIR}/versioning)
 target_include_directories(TTreeIterator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 add_dependencies(TTreeIterator TTreeIterator_version)
 
+set(SETUP ${CMAKE_CURRENT_BINARY_DIR}/setup.sh)
+file(WRITE ${SETUP} "#!/bin/bash\n")
+file(APPEND ${SETUP} "# this is an auto-generated setup script\n" )
+file(APPEND ${SETUP} "export PYTHONPATH=\${PYTHONPATH}:${CMAKE_CURRENT_BINARY_DIR}\n")
+file(APPEND ${SETUP} "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${CMAKE_CURRENT_BINARY_DIR}\n")
+## file(APPEND ${SETUP} "export PATH=\${PATH}:${CMAKE_CURRENT_SOURCE_DIR}/scripts\n")
+
+
 
 enable_testing()
 include(GoogleTest)
@@ -35,3 +43,7 @@ install( FILES ${CMAKE_CURRENT_BINARY_DIR}/libTTreeIterator.rootmap
 install(TARGETS TTreeIterator
         LIBRARY DESTINATION lib
         COMPONENT libraries)
+
+string(ASCII 27 Esc)
+message(STATUS "${Esc}[1;35mIMPORTANT: Remember to run:
+    source ${SETUP}${Esc}[m" )
