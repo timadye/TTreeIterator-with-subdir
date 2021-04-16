@@ -25,8 +25,10 @@ file(APPEND ${SETUP} "export LD_LIBRARY_PATH=\${LD_LIBRARY_PATH}:${ROOT_LIBRARY_
 enable_testing()
 include(GoogleTest)
 add_executable(TestTrees test/treeTests.cxx)
+add_executable(TestIter test/iterTests.cxx)
 add_executable(TestTiming test/timingTests.cxx)
 target_link_libraries(TestTrees TTreeIterator gtest gtest_main)
+target_link_libraries(TestIter TTreeIterator gtest gtest_main)
 target_link_libraries(TestTiming TTreeIterator gtest gtest_main)
 add_custom_command(TARGET TestTrees
         POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/test/model.root"
