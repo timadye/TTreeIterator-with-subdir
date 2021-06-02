@@ -27,9 +27,11 @@ include(GoogleTest)
 add_executable(TestTrees test/treeTests.cxx)
 add_executable(TestIter test/iterTests.cxx)
 add_executable(TestTiming test/timingTests.cxx)
+add_executable(BenchAny test/anyBench.cxx)
 target_link_libraries(TestTrees TTreeIterator gtest gtest_main)
 target_link_libraries(TestIter TTreeIterator gtest gtest_main)
 target_link_libraries(TestTiming TTreeIterator gtest gtest_main)
+target_link_libraries(BenchAny TTreeIterator gtest benchmark::benchmark)
 add_custom_command(TARGET TestTrees
         POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/test/model.root"
         "$<TARGET_FILE_DIR:TestTrees>/model.root")
